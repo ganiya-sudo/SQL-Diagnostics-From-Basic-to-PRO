@@ -89,3 +89,25 @@ SELECT plan_tier, AVG(ram_usage_percent) AS mean_ram_load
 FROM user_databases
 WHERE cpu_usage_percent > 50
 GROUP BY plan_tier;
+
+
+-- --------------------------------------------------------
+-- PHASE 4: THE CAPSTONE CAPACITIES (FINAL ASSESSMENTS)
+-- --------------------------------------------------------
+
+-- Ticket 4.1: Multi-Table Analytical Crisis Triage
+SELECT u.plan_tier, AVG(u.cpu_usage_percent) AS avg_cpu_load
+FROM user_databases u
+JOIN database_backups b ON u.db_id = b.db_id
+WHERE (u.customer_email LIKE '%.io' OR u.customer_email LIKE '%.co') AND b.backup_status = 'failed'
+GROUP BY u.plan_tier
+HAVING AVG(u.cpu_usage_percent) > 10
+ORDER BY avg_cpu_load DESC;
+
+-- Ticket 4.2: Internal Verification Naming Pattern Density Scan
+SELECT region, COUNT(*) AS project_count
+FROM cluster_projects
+WHERE org_name LIKE '%Tech%' AND status = 'paused'
+GROUP BY region;
+
+NEXT UP IS POSTGRES
