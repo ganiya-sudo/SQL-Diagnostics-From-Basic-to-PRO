@@ -1,13 +1,13 @@
 -- ========================================================
 -- MASTER SCHEMA SETUP
 -- ========================================================
-CREATE DATABASE IF NOT EXISTS tse_support_practice;
+CREATE DATABASE tse_support_practice;
 USE tse_support_practice;
 
 -- --------------------------------------------------------
--- DATASET A: SYSTEM CLUSTER PROJECTS (Phase 1 & 2 Baseline)
+-- DATASET A: REGIONAL SERVER CLUSTERS (Table 1)
 -- --------------------------------------------------------
-CREATE TABLE IF NOT EXISTS supabase_projects (
+CREATE TABLE IF NOT EXISTS cluster_projects (
     project_id INT PRIMARY KEY,
     org_name VARCHAR(100),
     region VARCHAR(50),
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS supabase_projects (
     status VARCHAR(20)
 );
 
-INSERT INTO supabase_projects (project_id, org_name, region, total_db_size_gb, active_connections, status) VALUES
+INSERT INTO cluster_projects VALUES
 (101, 'AcmeCorp', 'us-east-1', 45, 120, 'active'),
 (102, 'DevStudio', 'eu-west-1', 12, 8, 'paused'),
 (103, 'BuildIt', 'us-east-1', 150, 450, 'active'),
@@ -26,7 +26,7 @@ INSERT INTO supabase_projects (project_id, org_name, region, total_db_size_gb, a
 ON DUPLICATE KEY UPDATE project_id=project_id;
 
 -- --------------------------------------------------------
--- DATASET B: USER DATABASE STORAGE METRICS (Phase 2 Joins)
+-- DATASET B: USER DATABASE STORAGE METRICS (Tables 2 & 3)
 -- --------------------------------------------------------
 CREATE TABLE IF NOT EXISTS user_databases (
     db_id INT PRIMARY KEY,
