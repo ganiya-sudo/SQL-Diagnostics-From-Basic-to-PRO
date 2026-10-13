@@ -66,3 +66,26 @@ FROM user_databases u
 LEFT JOIN database_backups b ON u.db_id = b.db_id
 WHERE u.plan_tier = 'free' AND u.ssl_enabled = 'FALSE'
 ORDER BY u.ram_usage_percent DESC;
+
+
+-- --------------------------------------------------------
+-- PHASE 3: DATA AGGREGATION & OPERATIONAL METRICS
+-- --------------------------------------------------------
+
+-- Ticket 3.1: Incident Fleet Headcount (Unencrypted Counts)
+SELECT plan_tier, COUNT(*) AS unencrypted_count
+FROM user_databases
+WHERE ssl_enabled = 'FALSE'
+GROUP BY plan_tier;
+
+-- Ticket 3.2: Infrastructure Capacity Volume Audit
+SELECT region, SUM(total_db_size_gb) AS combined_gb_volume
+FROM cluster_projects
+WHERE status = 'active'
+GROUP BY region;
+
+-- Ticket 3.3: High Memory Metrics Analysis (Average RAM)
+SELECT plan_tier, AVG(ram_usage_percent) AS mean_ram_load
+FROM user_databases
+WHERE cpu_usage_percent > 50
+GROUP BY plan_tier;
