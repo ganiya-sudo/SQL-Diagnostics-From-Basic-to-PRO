@@ -1,26 +1,27 @@
-# 📊 SQL Diagnostics: From Basic to PRO
+# SQL Diagnostics: From Basic to PRO
 
-Welcome to my master SQL progress journal! I am teaching myself database engineering from the ground up to prepare for a **Technical Support Engineer** role. 
+Welcome to my master SQL progress journal! I am transitioning from a Customer Service Representative (CSR) to a **Technical Support Engineer (TSE)**. This repository tracks my journey as I build my technical muscle memory to prepare for a role at teams like **Supabase**.
 
-This repository tracks my journey as I progress from writing basic text filters to handling complex infrastructure triage scenarios.
+This repository documents my progression from simple single-table filters to multi-table relational debugging, explicit database casting mechanisms, and advanced query optimizations.
 
 ---
 
-## 🗺️ My Progression Map
+## My Progression Map
 
-### 🟢 Phase 1: Foundational Filtering (Basic)
+### Phase 1: Foundational Filtering (Basic)
 *   **Concepts Mastered:** `SELECT`, `FROM`, `WHERE`, `ORDER BY`, `AND`, `OR`.
-*   **What I learned:** Mastered the strict front-end typing sequence and learned how to use parenthetical containers `( )` to prevent logical errors when mixing operators.
+*   **What I learned:** Mastered the strict front-end lexical query sequence and learned how to use parenthetical containers `( )` to prevent logical operator traps.
 
-### 🟡 Phase 2: Relational Multi-Table Joins (Intermediate)
-*   **Concepts Mastered:** `INNER JOIN`, `LEFT JOIN`, `ON` clause statements, Table Aliases/Nicknames.
-*   **What I learned:** Discovered how database systems use Primary Keys and Foreign Keys to link separated metrics together side-by-side like a train.
+### Phase 2: Relational Multi-Table Joins (Intermediate)
+*   **Concepts Mastered:** `INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN`, `FULL OUTER JOIN`, `ON` hooks.
+*   **What I learned:** Discovered how database systems use Primary Keys and Foreign Keys to cross-reference data. Mastered tracking down orphaned records and data leaks using outer joins.
 
-### 🟠 Phase 3: Data Aggregation & Metrics (Current Goal)
-*   **Concepts Mastered:** *Coming Soon (Counting, Summarizing, and Grouping metrics)*
+### Phase 3: Native PostgreSQL Infrastructure Diagnostics (Graduated 🚀)
+*   **Concepts Mastered:** Strict Quotes Law, `ILIKE`, `COUNT(*)`, `AVG()`, `GROUP BY`, `HAVING`, Explicit Data Casting (`::TEXT`, `::INT`, `::NUMERIC`), Date Mechanics (`NOW()`, `INTERVAL`, `BETWEEN`), Pagination Loops (`LIMIT` / `OFFSET`), Nested Subqueries.
+*   **What I learned:** Transitioned from MySQL to strict PostgreSQL architecture. Mastered the database engine's true internal 6-step Order of Execution. Learned how to isolate complex structural bugs, perform data adjustments on the fly, and resolve platform performance metrics using live Supabase sandboxes.
 
 ---
 
-## 📁 Repository Schema Files
-*   `master_schema.sql` - Contains all the database structure and data rows built throughout my training.
-*   `master_diagnostics.sql` - My complete history of solved real-world troubleshooting scenarios.
+## Repository Schema Files
+*   `schemas.sql` - Contains all the SQL/PostgreSQL database structures and data seed rows built throughout my training.
+*   `diagnostics.sql` - My complete history of solved real-world technical support incidents and queries.
