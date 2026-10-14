@@ -1,13 +1,9 @@
--- ========================================================
--- MASTER SCHEMA SETUP
--- ========================================================
+MASTER SCHEMA SETUP
+
 CREATE DATABASE tse_support_practice;
 USE tse_support_practice;
 
--- --------------------------------------------------------
--- DATASET A: REGIONAL SERVER CLUSTERS (Table 1)
--- --------------------------------------------------------
-CREATE TABLE IF NOT EXISTS cluster_projects (
+CREATE TABLE cluster_projects (
     project_id INT PRIMARY KEY,
     org_name VARCHAR(100),
     region VARCHAR(50),
@@ -16,19 +12,7 @@ CREATE TABLE IF NOT EXISTS cluster_projects (
     status VARCHAR(20)
 );
 
-INSERT INTO cluster_projects VALUES
-(101, 'AcmeCorp', 'us-east-1', 45, 120, 'active'),
-(102, 'DevStudio', 'eu-west-1', 12, 8, 'paused'),
-(103, 'BuildIt', 'us-east-1', 150, 450, 'active'),
-(104, 'Saasify', 'ap-southeast', 8, 95, 'active'),
-(105, 'ByteSize', 'eu-west-1', 95, 12, 'active'),
-(106, 'CloudTech', 'us-east-1', 3, 0, 'paused')
-ON DUPLICATE KEY UPDATE project_id=project_id;
-
--- --------------------------------------------------------
--- DATASET B: USER DATABASE STORAGE METRICS (Tables 2 & 3)
--- --------------------------------------------------------
-CREATE TABLE IF NOT EXISTS user_databases (
+CREATE TABLE user_databases (
     db_id INT PRIMARY KEY,
     customer_email VARCHAR(100),
     plan_tier VARCHAR(20),       
@@ -37,12 +21,33 @@ CREATE TABLE IF NOT EXISTS user_databases (
     ssl_enabled VARCHAR(5)       
 );
 
-CREATE TABLE IF NOT EXISTS database_backups (
+CREATE TABLE database_backups (
     backup_id INT PRIMARY KEY,
     db_id INT,                         
     last_backup_date DATE,
     backup_status VARCHAR(20)          
 );
+    
+CREATE TABLE billing_invoices (
+    invoice_id INT PRIMARY KEY,
+    db_id INT, 
+    amount_due_usd NUMERIC(10,2),
+    payment_status VARCHAR(20)
+
+CREATE TABLE system_audit_logs (
+    log_id INT PRIMARY KEY,
+    raw_user_id VARCHAR(50),      
+    raw_billing_limit VARCHAR(50) 
+);
+
+
+    INSERT INTO cluster_projects VALUES
+(101, 'AcmeCorp', 'us-east-1', 45, 120, 'active'),
+(102, 'DevStudio', 'eu-west-1', 12, 8, 'paused'),
+(103, 'BuildIt', 'us-east-1', 150, 450, 'active'),
+(104, 'Saasify', 'ap-southeast', 8, 95, 'active'),
+(105, 'ByteSize', 'eu-west-1', 95, 12, 'active'),
+(106, 'CloudTech', 'us-east-1', 3, 0, 'paused')
 
 INSERT INTO user_databases VALUES
 (501, 'alpha@test.com', 'free', 92, 45, 'FALSE'),
@@ -51,7 +56,6 @@ INSERT INTO user_databases VALUES
 (504, 'delta@shop.nz', 'free', 85, 90, 'FALSE'),
 (505, 'epsilon@app.co', 'pro', 98, 95, 'TRUE'),
 (506, 'zeta@edu.ng', 'free', 10, 12, 'TRUE')
-ON DUPLICATE KEY UPDATE db_id=db_id;
 
 INSERT INTO database_backups VALUES
 (901, 501, '2026-10-10', 'successful'),
@@ -60,4 +64,17 @@ INSERT INTO database_backups VALUES
 (904, 504, '2026-10-09', 'successful'),
 (905, 505, '2026-10-12', 'failed'),
 (906, 506, '2026-10-12', 'successful')
-ON DUPLICATE KEY UPDATE backup_id=backup_id;
+
+INSERT INTO billing_invoices VALUES
+(7001, 502, 1500.00, 'paid'),      
+(7002, 503, 25.00,   'paid'),      
+(7003, 505, 25.00,   'unpaid'),    
+(7004, 999, 120.00,  'unpaid');  
+
+INSERT INTO system_audit_logs VALUES
+(1, '501', '150.00'),
+(2, '502', '2000.50'),
+(3, '505', '45.00'),
+(4, '705', '1200.00'),
+(5, '509', '75.25');
+    
