@@ -107,7 +107,7 @@ ORDER BY avg_cpu_load DESC;
 -- Ticket 4.2: Internal Verification Naming Pattern Density Scan
 SELECT region, COUNT(*) AS project_count
 FROM cluster_projects
-WHERE org_name LIKE '%Tech%' AND status = 'paused'
+WHERE org_name ILIKE '%Tech%' AND status = 'paused'
 GROUP BY region;
 
 PostgreSQL Production Architecture & Support Diagnostics
