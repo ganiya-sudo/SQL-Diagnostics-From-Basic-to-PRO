@@ -110,7 +110,11 @@ FROM cluster_projects
 WHERE org_name ILIKE '%Tech%' AND status = 'paused'
 GROUP BY region;
 
-PostgreSQL Production Architecture & Support Diagnostics
+
+-- ========================================================
+-- PostgreSQL Production Architecture & Support Diagnostics
+-- ========================================================
+
 -- ========================================================
 -- CASE 01: HIGH RAM VULNERABILITY AUDIT
 -- ========================================================
@@ -121,15 +125,7 @@ ORDER BY ram_usage_percent DESC;
 
 
 -- ========================================================
--- CASE 02: HANDLING IRREGULAR CASING AND SPACES
--- ========================================================
-SELECT id, "RegionName", "error count"
-FROM server_logs
-WHERE "RegionName" = 'eu-west-1';
-
-
--- ========================================================
--- CASE 03: THE ALIAS-WHERE GUARD TRIAGE
+-- CASE 02: THE ALIAS-WHERE GUARD TRIAGE (Formerly CASE 03)
 -- ========================================================
 SELECT customer_email, cpu_usage_percent AS core_load
 FROM user_databases
@@ -137,7 +133,7 @@ WHERE cpu_usage_percent > 80;
 
 
 -- ========================================================
--- CASE 04: CASE-INSENSITIVE TEXT RECOVERY
+-- CASE 03: CASE-INSENSITIVE TEXT RECOVERY (Formerly CASE 04)
 -- ========================================================
 SELECT project_id, org_name, status
 FROM cluster_projects
@@ -145,7 +141,7 @@ WHERE org_name ILIKE '%studio%';
 
 
 -- ========================================================
--- CASE 05: EXPLICIT NUMERIC-TO-TEXT CASTING SEARCH
+-- CASE 04: EXPLICIT NUMERIC-TO-TEXT CASTING SEARCH (Formerly CASE 05)
 -- ========================================================
 SELECT log_id
 FROM system_audit_logs
@@ -153,7 +149,7 @@ WHERE log_id::TEXT LIKE '%1' OR log_id::TEXT LIKE '%5';
 
 
 -- ========================================================
--- CASE 06: TEXT-TO-INTEGER TYPE ISOLATION
+-- CASE 05: TEXT-TO-INTEGER TYPE ISOLATION (Formerly CASE 06)
 -- ========================================================
 SELECT log_id, raw_user_id
 FROM system_audit_logs
@@ -161,7 +157,7 @@ WHERE raw_user_id::INT < 505;
 
 
 -- ========================================================
--- CASE 07: TEXT-TO-DECIMAL FINANCIAL FILTER
+-- CASE 06: TEXT-TO-DECIMAL FINANCIAL FILTER (Formerly CASE 07)
 -- ========================================================
 SELECT log_id, raw_billing_limit, raw_user_id
 FROM system_audit_logs
@@ -169,7 +165,7 @@ WHERE raw_billing_limit::NUMERIC > 100.00;
 
 
 -- ========================================================
--- CASE 08: RELATIONAL TIMELINE RANGE AUDIT
+-- CASE 07: RELATIONAL TIMELINE RANGE AUDIT (Formerly CASE 08)
 -- ========================================================
 SELECT backup_id, last_backup_date
 FROM database_backups
@@ -177,7 +173,7 @@ WHERE last_backup_date BETWEEN '2026-10-09' AND '2026-10-11';
 
 
 -- ========================================================
--- CASE 09: TIMELINE DAY LIST DISCRETE SEARCH
+-- CASE 08: TIMELINE DAY LIST DISCRETE SEARCH (Formerly CASE 09)
 -- ========================================================
 SELECT backup_id, last_backup_date
 FROM database_backups
@@ -185,7 +181,7 @@ WHERE last_backup_date IN ('2026-10-10', '2026-10-11', '2026-10-12');
 
 
 -- ========================================================
--- CASE 10: WORKLOAD PAGINATION OFFSET ENGINE
+-- CASE 09: WORKLOAD PAGINATION OFFSET ENGINE (Formerly CASE 10)
 -- ========================================================
 SELECT org_name, active_connections
 FROM cluster_projects
@@ -195,7 +191,7 @@ OFFSET 1;
 
 
 -- ========================================================
--- CASE 11: SECURITY CONFIGURATION PLAN BREAKDOWN
+-- CASE 10: SECURITY CONFIGURATION PLAN BREAKDOWN (Formerly CASE 11)
 -- ========================================================
 SELECT plan_tier, ssl_enabled, AVG(cpu_usage_percent) AS avg_percent
 FROM user_databases
@@ -203,7 +199,7 @@ GROUP BY plan_tier, ssl_enabled;
 
 
 -- ========================================================
--- CASE 12: DYNAMIC INTRA-SYSTEM SPIKE SUBQUERY
+-- CASE 11: DYNAMIC INTRA-SYSTEM SPIKE SUBQUERY (Formerly CASE 12)
 -- ========================================================
 SELECT customer_email, cpu_usage_percent
 FROM user_databases
@@ -214,7 +210,7 @@ WHERE cpu_usage_percent > (
 
 
 -- ========================================================
--- CASE 13: PERFECT-MATCH COUPLING (INNER JOIN)
+-- CASE 12: PERFECT-MATCH COUPLING INNER JOIN (Formerly CASE 13)
 -- ========================================================
 SELECT u.db_id, u.plan_tier, bi.invoice_id, bi.amount_due_usd 
 FROM user_databases u
@@ -222,7 +218,7 @@ INNER JOIN billing_invoices bi ON u.db_id = bi.db_id;
 
 
 -- ========================================================
--- CASE 14: MASTER LOG ACCURACY ASSURANCE (LEFT JOIN)
+-- CASE 13: MASTER LOG ACCURACY ASSURANCE LEFT JOIN (Formerly CASE 14)
 -- ========================================================
 SELECT u.db_id, u.customer_email, u.plan_tier, bi.invoice_id, bi.amount_due_usd 
 FROM user_databases u
@@ -230,7 +226,7 @@ LEFT JOIN billing_invoices bi ON u.db_id = bi.db_id;
 
 
 -- ========================================================
--- CASE 15: ORPHANED ACCOUNTING ISOLATION (RIGHT JOIN)
+-- CASE 14: ORPHANED ACCOUNTING ISOLATION RIGHT JOIN (Formerly CASE 15)
 -- ========================================================
 SELECT u.customer_email, bi.invoice_id, u.db_id, u.plan_tier, bi.amount_due_usd 
 FROM user_databases u              
@@ -238,7 +234,7 @@ RIGHT JOIN billing_invoices bi ON u.db_id = bi.db_id;
 
 
 -- ========================================================
--- CASE 16: SYSTEM LANDSCAPE PROFILE RECONCILIATION (FULL JOIN)
+-- CASE 15: SYSTEM LANDSCAPE PROFILE RECONCILIATION FULL JOIN (Formerly CASE 16)
 -- ========================================================
 SELECT u.customer_email, u.db_id, u.plan_tier, bi.invoice_id, bi.amount_due_usd
 FROM user_databases u
@@ -246,7 +242,7 @@ FULL OUTER JOIN billing_invoices bi ON u.db_id = bi.db_id;
 
 
 -- ========================================================
--- CASE 17: MASTER INCIDENT ESCALATION TRIAGE (THE FINALE CAPSTONE)
+-- CASE 16: MASTER INCIDENT ESCALATION TRIAGE - THE FINALE CAPSTONE (Formerly CASE 17)
 -- ========================================================
 SELECT 
     u.db_id,
@@ -267,4 +263,3 @@ HAVING AVG(u.cpu_usage_percent) > (
     FROM user_databases
 )
 ORDER BY u.ram_usage_percent DESC;
-
