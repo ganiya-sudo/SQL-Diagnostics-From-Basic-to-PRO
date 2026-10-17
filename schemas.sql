@@ -32,7 +32,7 @@ CREATE TABLE billing_invoices (
     invoice_id INT PRIMARY KEY,
     db_id INT, 
     amount_due_usd NUMERIC(10,2),
-    payment_status VARCHAR(20)
+    payment_status VARCHAR(20);
 
 CREATE TABLE system_audit_logs (
     log_id INT PRIMARY KEY,
@@ -47,7 +47,7 @@ CREATE TABLE system_audit_logs (
 (103, 'BuildIt', 'us-east-1', 150, 450, 'active'),
 (104, 'Saasify', 'ap-southeast', 8, 95, 'active'),
 (105, 'ByteSize', 'eu-west-1', 95, 12, 'active'),
-(106, 'CloudTech', 'us-east-1', 3, 0, 'paused')
+(106, 'CloudTech', 'us-east-1', 3, 0, 'paused');
 
 INSERT INTO user_databases VALUES
 (501, 'alpha@test.com', 'free', 92, 45, 'FALSE'),
@@ -55,7 +55,7 @@ INSERT INTO user_databases VALUES
 (503, 'gamma@dev.io', 'pro', 15, 20, 'TRUE'),
 (504, 'delta@shop.nz', 'free', 85, 90, 'FALSE'),
 (505, 'epsilon@app.co', 'pro', 98, 95, 'TRUE'),
-(506, 'zeta@edu.ng', 'free', 10, 12, 'TRUE')
+(506, 'zeta@edu.ng', 'free', 10, 12, 'TRUE');
 
 INSERT INTO database_backups VALUES
 (901, 501, '2026-10-10', 'successful'),
@@ -63,7 +63,7 @@ INSERT INTO database_backups VALUES
 (903, 503, '2026-10-11', 'failed'),
 (904, 504, '2026-10-09', 'successful'),
 (905, 505, '2026-10-12', 'failed'),
-(906, 506, '2026-10-12', 'successful')
+(906, 506, '2026-10-12', 'successful');
 
 INSERT INTO billing_invoices VALUES
 (7001, 502, 1500.00, 'paid'),      
