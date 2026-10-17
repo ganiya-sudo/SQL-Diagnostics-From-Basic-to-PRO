@@ -40,6 +40,12 @@ CREATE TABLE system_audit_logs (
     raw_billing_limit VARCHAR(50) 
 );
 
+CREATE TABLE billing_invoices (
+    invoice_id INT PRIMARY KEY,
+    db_id INT, 
+    amount_due_usd NUMERIC(10,2),
+    payment_status VARCHAR(20)
+);
 
     INSERT INTO cluster_projects VALUES
 (101, 'AcmeCorp', 'us-east-1', 45, 120, 'active'),
@@ -77,4 +83,7 @@ INSERT INTO system_audit_logs VALUES
 (3, '505', '45.00'),
 (4, '705', '1200.00'),
 (5, '509', '75.25');
-    
+
+INSERT INTO cluster_projects VALUES
+(101, 'AcmeCorp', 'us-east-1', 45, 120, 'active'),
+(106, 'CloudTech', 'us-east-1', 3, 0, 'paused');
