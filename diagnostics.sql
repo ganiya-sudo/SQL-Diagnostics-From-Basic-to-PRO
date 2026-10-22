@@ -262,3 +262,18 @@ HAVING AVG(u.cpu_usage_percent) > (
     FROM user_databases
 )
 ORDER BY u.ram_usage_percent DESC;
+
+-- ========================================================
+-- CASE 17: QUERY PERFORMANCE & INDEX SCAN DIAGNOSTICS
+-- ========================================================
+-- Step 1: Run a query to find unpaid invoices (usually a Seq Scan)
+EXPLAIN ANALYZE SELECT * FROM billing_invoices WHERE payment_status = 'unpaid';
+
+-- Step 2: Create a functional index to speed up case-insensitive searches
+CREATE INDEX idx_billing_invoices_status ON billing_invoices(payment_status);
+
+-- Step 3: Force the database to use the index. (Postgres ignores indexes on tiny tables 
+-- because a Seq Scan is actually faster when there are only 6 rows,
+-- hence runningthese two commands together in the exact same execution block).
+SET enable_seqscan = OFF;
+EXPLAIN ANALYZE SELECT * FROM billing_invoices WHERE payment_status = 'unpaid';
