@@ -241,21 +241,22 @@ FULL OUTER JOIN billing_invoices bi ON u.db_id = bi.db_id;
 
 
 -- ========================================================
--- CASE 16: MASTER INCIDENT ESCALATION TRIAGE - THE FINALE CAPSTONE (Formerly CASE 17)
+-- CASE 16: INCIDENT ESCALATION TRIAGE
 -- ========================================================
 SELECT 
     u.db_id,
     u.customer_email, 
     u.plan_tier,
     b.backup_status,
-    COUNT(*) AS total_logs
+    COUNT(*) AS total_backups
 FROM user_databases u
 LEFT JOIN database_backups b ON u.db_id = b.db_id
 WHERE (u.customer_email ILIKE '%test%' OR u.customer_email ILIKE '%corp%')
 GROUP BY 
     u.db_id, 
     u.customer_email, 
-    u.plan_tier, 
+    u.plan_tier,
+    u.ram_usage_percent,
     b.backup_status
 HAVING AVG(u.cpu_usage_percent) > (
     SELECT AVG(cpu_usage_percent) 
